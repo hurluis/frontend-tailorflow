@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <h2>Iniciar Sesión</h2>
+
+    <div>
+
+        <label for="cc">CC:</label>
+
+        <input id="cc" type="cc" formControlName="cc">
+
+    </div>
+
+    <div>
+
+        <label for="password">Contraseña:</label>
+
+        <input id="password" type="password" formControlName="password">
+
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+
+</form>
