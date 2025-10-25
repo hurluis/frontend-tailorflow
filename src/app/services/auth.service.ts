@@ -49,7 +49,6 @@ export class AuthService {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('Payload del token:', payload);
       return {
         id_rol: payload.id_rol,
         cc: payload.cc,
