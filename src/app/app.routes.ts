@@ -4,22 +4,29 @@ import { Admin } from './pages/admin/admin';
 import { Employee } from './pages/employee/employee';
 import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { Dashboard } from './pages/dashboard/dashboard';
 
 export const routes: Routes = [
     {
-        path: '', 
+        path: '',
         component: Login
     },
     {
-        path: 'admin', 
-        component: Admin, 
-        canActivate:[authGuard, roleGuard],
-        data: {role: 'admin'}
+        path: 'admin',
+        component: AdminLayout,
+        canActivate: [authGuard, roleGuard],
+        data: { role: 'admin' },
+        children: [
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: Dashboard }, // Por crear
+            // Las demás rutas las agregaremos después
+        ]
     },
     {
-        path: 'employee', 
-        component: Employee, 
-        canActivate:[authGuard, roleGuard],
-        data: {role: 'employee'}
+        path: 'employee',
+        component: Employee,
+        canActivate: [authGuard, roleGuard],
+        data: { role: 'employee' }
     }
 ];
