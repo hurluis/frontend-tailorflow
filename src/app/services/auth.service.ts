@@ -6,6 +6,8 @@ import { Observable, tap } from 'rxjs';
 import { ResponseDto } from '../core/models/response.dto';
 import { LoginResponse } from '../core/models/login-response.dto';
 import { tokenKey } from '../common/constants';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,10 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(credentials: Credentials): Observable<ResponseDto<LoginResponse>> {
     return this.http.post<ResponseDto<LoginResponse>>(`${this.apiUrl}/auth/login`, credentials)
@@ -29,7 +34,8 @@ export class AuthService {
   }
 
   logout(): void {
-    return localStorage.removeItem(tokenKey);
+    localStorage.removeItem(tokenKey);
+    this.router.navigate(['']);
   }
 
   getToken(): string | null {
@@ -37,12 +43,29 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) {
+      return false;
+    }
+    return !this.isTokenExpired(token)
+
+  }
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const decoded: { exp: number } = jwtDecode(token);
+      const expirationDate = decoded.exp * 1000;
+      const now = new Date().getTime();
+
+      return expirationDate < now;
+    } catch (error) {
+      return true;
+    }
   }
 
   getCurrentUser(): LoginResponse | null {
     const token = this.getToken();
-    
+
     if (!token) {
       return null;
     }
@@ -65,9 +88,9 @@ export class AuthService {
     const user = this.getCurrentUser();
 
     if (!user) {
-      return '/login';
+      return '';
     }
 
     return user.id_rol === 1 ? '/admin' : '/employee';
-  } 
+  }
 }
