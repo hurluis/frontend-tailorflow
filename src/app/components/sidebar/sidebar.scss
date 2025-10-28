@@ -1,0 +1,24 @@
+.active {
+  background-color: var(--mat-sys-primary-container);
+  
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+  
+  span {
+    color: var(--mat-sys-on-primary-container);
+    font-weight: 500;
+  }
+}
+
+a {
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: var(--mat-sys-surface-container-high);
+  }
+  
+  mat-icon {
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
