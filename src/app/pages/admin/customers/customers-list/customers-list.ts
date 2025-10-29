@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,7 +33,7 @@ export class CustomersList implements OnInit {
   displayedColumns: string[] = ['id_customer', 'name', 'phone', 'address', 'actions'];
   isLoading = false;
 
-  constructor(private customersService: CustomersService) { }
+  constructor(private customersService: CustomersService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadCustomers();
@@ -58,5 +58,9 @@ export class CustomersList implements OnInit {
     this.page = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.loadCustomers();
+  }
+
+  editCustomer(customer: Customer): void{
+    this.router.navigate(['/admin/customers/edit', customer.id_customer]);
   }
 }

@@ -1,20 +1,48 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { ResponseDto } from '../core/models/response.dto';
 import { Employee } from '../core/models/employee.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
-    private apiUrl = environment.apiUrl;
+export class EmployeesService {
+  private readonly API_URL = `${environment.apiUrl}/employees`;
 
-    constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
-    getEmployeeDetails(cc: string): Observable<ResponseDto<Employee>>{
-      return this.http.get<ResponseDto<Employee>>(`${this.apiUrl}/employees/cc/${cc}`);
-    }
+  getAll(page: number = 1, limit: number = 10): Observable<ResponseDto<{
+    employees: Employee[];
+    total: number;
+    page: number;
+    totalPages: number;
+  }>> {
+    return this.http.get<ResponseDto<any>>(`${this.API_URL}?page=${page}&limit=${limit}`);
+  }
 
+  getAllForForms(): Observable<ResponseDto<Employee[]>> {
+    return this.http.get<ResponseDto<Employee[]>>(`${this.API_URL}/all`);
+  }
+
+  getById(id: number): Observable<ResponseDto<Employee>> {
+    return this.http.get<ResponseDto<Employee>>(`${this.API_URL}/${id}`);
+  }
+
+  create(employee: any): Observable<ResponseDto<Employee>> {
+    return this.http.post<ResponseDto<Employee>>(this.API_URL, employee);
+  }
+
+  update(id: number, employee: any): Observable<ResponseDto<Employee>> {
+    return this.http.patch<ResponseDto<Employee>>(`${this.API_URL}/${id}`, employee);
+  }
+
+  delete(id: number): Observable<ResponseDto<Employee>> {
+    return this.http.delete<ResponseDto<Employee>>(`${this.API_URL}/${id}`);
+  }
+
+  getEmployeeDetails(cc: string): Observable<ResponseDto<Employee>>{
+      return this.http.get<ResponseDto<Employee>>(`${this.API_URL}/cc/${cc}`);
+  }
 }

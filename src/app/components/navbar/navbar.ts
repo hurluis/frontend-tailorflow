@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core'; // <<-- AÑADIDO: OnInit
-import { CommonModule } from '@angular/common'; // <<-- AÑADIDO: Necesario para directivas
+import { Component, EventEmitter, Output, OnInit } from '@angular/core'; 
+import { CommonModule } from '@angular/common'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { EmployeeService } from '../../services/employee.service';
+import { EmployeesService } from '../../services/employee.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class Navbar implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private employeeService: EmployeeService,
+    private employeeService: EmployeesService,
     private router: Router
   ) {
 

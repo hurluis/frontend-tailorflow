@@ -1,0 +1,60 @@
+<div class="edit-customer-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>person</mat-icon> Editar Cliente
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="customer">
+        Cliente: {{ customer.name }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="form-content">
+      <div *ngIf="isLoading" class="loading-spinner">
+        Cargando datos del cliente...
+      </div>
+
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" placeholder="Ingrese el nuevo nombre">
+          <mat-icon matSuffix>person_outline</mat-icon>
+          <mat-error *ngIf="editForm.get('name')?.hasError('maxlength')">
+            Máximo 100 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="address" placeholder="Ingrese la nueva dirección">
+          <mat-icon matSuffix>location_on</mat-icon>
+          <mat-error *ngIf="editForm.get('address')?.hasError('maxlength')">
+            Máximo 100 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="phone" placeholder="Ingrese el nuevo teléfono">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="editForm.get('phone')?.hasError('maxlength')">
+            Máximo 15 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="isSaving || isLoading">
+            <mat-icon>{{ isSaving ? 'loop' : 'save' }}</mat-icon> 
+            {{ isSaving ? 'Guardando...' : 'Guardar Cambios' }}
+          </button>
+          <button mat-button type="button" (click)="onCancel()" [disabled]="isSaving">
+            Cancelar
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
