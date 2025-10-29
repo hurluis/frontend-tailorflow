@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,6 +54,7 @@ export class CreateOrder implements OnInit {
   customers: Customer[] = [];
   categories: Category[] = [];
   materials: Material[] = [];
+  customerSearchControl = new FormControl('');
   filteredCustomers!: Observable<Customer[]>;
 
   createdOrderId: number | null = null;
@@ -175,8 +176,10 @@ export class CreateOrder implements OnInit {
 
 
   loadCustomers(): void {
-    this.customersService.getAll().subscribe({
-      next: (response: ResponseDto<Customer[]>) => this.customers = response.data,
+    this.customersService.getAllForForms().subscribe({
+      next: (response) => {
+        this.customers = response.data;
+      },
       error: (err) => console.error('Error cargando clientes', err)
     });
   }
@@ -285,22 +288,27 @@ export class CreateOrder implements OnInit {
   }
 
   setupCustomerFilter(): void {
-    this.filteredCustomers = this.orderForm.get('id_customer')!.valueChanges.pipe(
+    this.filteredCustomers = this.customerSearchControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filterCustomers(value || ''))
     );
   }
 
-  private _filterCustomers(value: string | number): Customer[] {
-    if (typeof value === 'number') {
-      return this.customers;
-    }
-
+  private _filterCustomers(value: string): Customer[] {
     const filterValue = value.toLowerCase();
     return this.customers.filter(customer =>
       customer.name.toLowerCase().includes(filterValue)
     );
   }
+
+  onCustomerSelected(event: any): void {
+    this.orderForm.patchValue({
+      id_customer: event.option.value.id_customer
+    });
+  }
+  displayCustomerName = (customer: Customer): string => {
+    return customer ? customer.name : '';
+  };
 
   displayCustomer(id: number): string {
     // Esta función muestra el nombre cuando se selecciona

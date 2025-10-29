@@ -12,10 +12,11 @@
             <div class="form-section">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Cliente</mat-label>
-                <input type="text" matInput formControlName="id_customer" [matAutocomplete]="auto"
+                <input type="text" matInput [formControl]="customerSearchControl" [matAutocomplete]="auto"
                   placeholder="Buscar cliente...">
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCustomer">
-                  <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id_customer">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCustomerSelected($event)"
+                  [displayWith]="displayCustomerName">
+                  <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
                     {{ customer.name }}
                   </mat-option>
                 </mat-autocomplete>

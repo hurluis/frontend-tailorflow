@@ -11,10 +11,15 @@ import { Customer } from '../core/models/customer.model';
 export class CustomersService {
   private readonly API_URL = `${environment.apiUrl}/customers`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAll(): Observable<ResponseDto<Customer[]>> {
-    return this.http.get<ResponseDto<Customer[]>>(this.API_URL);
+  getAll(page: number = 1, limit: number = 10): Observable<ResponseDto<{
+    customers: Customer[];
+    total: number;
+    page: number;
+    totalPages: number;
+  }>> {
+    return this.http.get<ResponseDto<any>>(`${this.API_URL}?page=${page}&limit=${limit}`);
   }
 
   getById(id: number): Observable<ResponseDto<Customer>> {
@@ -27,5 +32,9 @@ export class CustomersService {
 
   update(id: number, customer: any): Observable<ResponseDto<Customer>> {
     return this.http.patch<ResponseDto<Customer>>(`${this.API_URL}/${id}`, customer);
+  }
+
+  getAllForForms(): Observable<ResponseDto<Customer[]>> {
+    return this.http.get<ResponseDto<Customer[]>>(`${this.API_URL}/all`);
   }
 }
