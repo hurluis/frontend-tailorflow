@@ -9,6 +9,7 @@ import { OrdersService } from '../../../../services/orders.service';
 import { Order } from '../../../../core/models/order.model';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderDetailsDialog } from '../order-details-dialog/order-details-dialog';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-orders-list',
@@ -20,13 +21,18 @@ import { OrderDetailsDialog } from '../order-details-dialog/order-details-dialog
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ],
   templateUrl: './orders-list.html',
   styleUrl: './orders-list.scss'
 })
 export class OrdersList implements OnInit {
   orders: Order[] = [];
+  total = 0;
+  page = 1;
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 25, 50];
   displayedColumns: string[] = ['id_order', 'customer_name', 'entry_date', 'estimated_delivery_date', 'state_name', 'actions'];
   isLoading = false;
 
@@ -38,9 +44,10 @@ export class OrdersList implements OnInit {
 
   loadOrders(): void {
     this.isLoading = true;
-    this.ordersService.getAll().subscribe({
+    this.ordersService.getAll(this.page, this.pageSize).subscribe({
       next: (response) => {
-        this.orders = response.data;
+        this.orders = response.data.orders;
+        this.total = response.data.total;
         this.isLoading = false;
       },
       error: (err) => {
@@ -65,5 +72,11 @@ export class OrdersList implements OnInit {
       return;
     }
     this.router.navigate(['/admin/orders/edit', order.id_order]);
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.page = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.loadOrders();
   }
 }

@@ -56,6 +56,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange($event)" showFirstLastButtons>
+      </mat-paginator>
 
       <div *ngIf="isLoading" class="loading">Cargando pedidos...</div>
       <div *ngIf="!isLoading && orders.length === 0" class="no-data">No hay pedidos registrados</div>

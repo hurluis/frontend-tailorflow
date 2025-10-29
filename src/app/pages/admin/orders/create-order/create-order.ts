@@ -22,7 +22,8 @@ import { Material } from '../../../../core/models/material.model';
 import { CreateProductPayload } from '../../../../core/models api/api.model';
 import { ResponseDto } from '../../../../core/models/response.dto';
 import { forkJoin, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, startWith } from 'rxjs/operators';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-create-order',
@@ -39,7 +40,8 @@ import { catchError, map } from 'rxjs/operators';
     MatCheckboxModule,
     MatCardModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
   templateUrl: './create-order.html',
   styleUrl: './create-order.scss'
@@ -52,6 +54,7 @@ export class CreateOrder implements OnInit {
   customers: Customer[] = [];
   categories: Category[] = [];
   materials: Material[] = [];
+  filteredCustomers!: Observable<Customer[]>;
 
   createdOrderId: number | null = null;
 
@@ -70,6 +73,7 @@ export class CreateOrder implements OnInit {
     this.loadCustomers();
     this.loadCategories();
     this.loadMaterials();
+    this.setupCustomerFilter();
   }
 
   initForms(): void {
@@ -278,6 +282,29 @@ export class CreateOrder implements OnInit {
     const month = String(localDate.getMonth() + 1).padStart(2, '0');
     const day = String(localDate.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  setupCustomerFilter(): void {
+    this.filteredCustomers = this.orderForm.get('id_customer')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCustomers(value || ''))
+    );
+  }
+
+  private _filterCustomers(value: string | number): Customer[] {
+    if (typeof value === 'number') {
+      return this.customers;
+    }
+
+    const filterValue = value.toLowerCase();
+    return this.customers.filter(customer =>
+      customer.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  displayCustomer(id: number): string {
+    // Esta función muestra el nombre cuando se selecciona
+    return ''; // Dejarlo vacío para que se limpie después de seleccionar
   }
 
 }

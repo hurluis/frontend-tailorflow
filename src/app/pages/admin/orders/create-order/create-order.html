@@ -12,11 +12,13 @@
             <div class="form-section">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Cliente</mat-label>
-                <mat-select formControlName="id_customer">
-                  <mat-option *ngFor="let customer of customers" [value]="customer.id_customer">
+                <input type="text" matInput formControlName="id_customer" [matAutocomplete]="auto"
+                  placeholder="Buscar cliente...">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCustomer">
+                  <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id_customer">
                     {{ customer.name }}
                   </mat-option>
-                </mat-select>
+                </mat-autocomplete>
                 <mat-error *ngIf="orderForm.get('id_customer')?.hasError('required')">
                   El cliente es requerido
                 </mat-error>
