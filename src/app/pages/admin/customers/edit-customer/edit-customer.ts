@@ -2,16 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
-// Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'; 
-
-// Servicios y Modelos
 import { CustomersService } from '../../../../services/customers.service';
 import { Customer } from '../../../../core/models/customer.model';
 
@@ -43,7 +39,7 @@ export class EditCustomer implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private customersService: CustomersService,
-    private cdr: ChangeDetectorRef // Inyectamos ChangeDetectorRef
+    private cdr: ChangeDetectorRef 
   ) {
     this.initForm();
   }
@@ -53,9 +49,7 @@ export class EditCustomer implements OnInit {
     this.loadCustomer();
   }
 
-  /**
-   * Inicializa el formulario SOLO con los campos editables (name, address, phone).
-   */
+ 
   initForm(): void {
     this.editForm = this.fb.group({
       name: ['', [Validators.maxLength(100)]],
@@ -64,15 +58,12 @@ export class EditCustomer implements OnInit {
     });
   }
 
-  /**
-   * Carga los datos del cliente, precarga el formulario y fuerza la detección de cambios.
-   */
+
   loadCustomer(): void {
     this.customersService.getById(this.customerId).subscribe({
       next: (response) => {
         this.customer = response.data;
-        
-        // Precarga SÓLO los campos editables
+
         this.editForm.patchValue({
           name: this.customer.name,
           address: this.customer.address,
@@ -80,13 +71,13 @@ export class EditCustomer implements OnInit {
         });
 
         this.isLoading = false;
-        this.cdr.detectChanges(); // Forzamos la detección de cambios para renderizar correctamente
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error cargando cliente', err);
         alert('Error al cargar el cliente');
         this.isLoading = false;
-        this.cdr.detectChanges(); // Forzamos la detección de cambios en caso de error
+        this.cdr.detectChanges(); 
         this.router.navigate(['/admin/customers']);
       }
     });
@@ -99,11 +90,9 @@ export class EditCustomer implements OnInit {
     }
 
     this.isSaving = true
-    const formValue = this.editForm.value; // Usamos .value porque no hay campos deshabilitados
+    const formValue = this.editForm.value; 
     const updateData: any = {};
 
-    // Construir el DTO de actualización: solo incluye campos si tienen valor
-    // Esto es vital ya que todos los campos son opcionales en el DTO del backend
     if (formValue.name) updateData.name = formValue.name;
     if (formValue.address) updateData.address = formValue.address;
     if (formValue.phone) updateData.phone = formValue.phone;
