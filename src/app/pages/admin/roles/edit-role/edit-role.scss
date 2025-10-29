@@ -1,0 +1,58 @@
+// Estilos compartidos para las vistas de Creación y Edición
+.create-role-container, .edit-role-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+mat-card {
+    width: 100%;
+    max-width: 700px; /* Ancho máximo para el formulario */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+mat-card-header {
+    padding-bottom: 16px;
+}
+
+mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.5em;
+}
+
+.form-content {
+    padding-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio vertical entre campos */
+}
+
+.full-width {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+
+    button {
+        min-width: 120px;
+    }
+}
+
+// Estilo para el área de carga (loading)
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    font-style: italic;
+    color: #666;
+}

@@ -15,6 +15,9 @@ import { EmployeesList } from './pages/admin/employees/employees-list/employees-
 import { CreateEmployee } from './pages/admin/employees/create-employee/create-employee';
 import { EditEmployee} from './pages/admin/employees/edit-employee/edit-employee';
 import { EditCustomer } from './pages/admin/customers/edit-customer/edit-customer';
+import { RolesList } from './pages/admin/roles/roles-list/roles-list';
+import { CreateRole } from './pages/admin/roles/create-role/create-role';
+import { EditRole } from './pages/admin/roles/edit-role/edit-role';
 
 export const routes: Routes = [
     {
@@ -37,7 +40,10 @@ export const routes: Routes = [
             { path: 'customers/edit/:id', component: EditCustomer },
             { path: 'employees', component: EmployeesList },
             { path: 'employees/create', component: CreateEmployee},
-            { path: 'employees/edit/:id', component: EditEmployee }
+            { path: 'employees/edit/:id', component: EditEmployee },
+            { path: 'roles', component: RolesList },
+            { path: 'roles/create', component: CreateRole},
+            { path: 'roles/edit/:id', component: EditRole }
         ]
     },
     {

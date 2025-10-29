@@ -1,0 +1,51 @@
+.roles-list-container {
+    padding: 20px;
+}
+
+mat-card {
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+mat-card-content {
+    padding-top: 16px;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+    min-height: 200px;
+}
+
+table {
+    width: 100%;
+}
+
+// Estilo para mostrar una carga
+.table-container.is-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.mat-column-actions {
+    width: 100px;
+    text-align: center;
+    padding-right: 16px;
+}
+
+.mat-paginator {
+    background: transparent;
+}
