@@ -6,6 +6,9 @@ import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { Dashboard } from './pages/dashboard/dashboard';
+import { OrdersList } from './pages/admin/orders/orders-list/orders-list';
+import { CreateOrder} from './pages/admin/orders/create-order/create-order';
+import { EditOrder } from './pages/admin/orders/edit-order/edit-order';
 
 export const routes: Routes = [
     {
@@ -19,8 +22,10 @@ export const routes: Routes = [
         data: { role: 'admin' },
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: Dashboard }, // Por crear
-            // Las demás rutas las agregaremos después
+            { path: 'dashboard', component: Dashboard },
+            { path: 'orders', component: OrdersList },
+           { path: 'orders/create', component: CreateOrder },
+           { path: 'orders/edit/:id', component: EditOrder}
         ]
     },
     {

@@ -13,7 +13,7 @@ import { EmployeeService } from '../../services/employee.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    CommonModule, // Necesario para directivas básicas y pipes
+    CommonModule, 
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -22,7 +22,7 @@ import { EmployeeService } from '../../services/employee.service';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar implements OnInit { // <<-- IMPLEMENTAR: OnInit
+export class Navbar implements OnInit { 
   @Output() sidebarToggle = new EventEmitter<void>();
   userName: string = 'Cargando...'; 
   notificationCount: number = 3; 
@@ -32,23 +32,19 @@ export class Navbar implements OnInit { // <<-- IMPLEMENTAR: OnInit
     private employeeService: EmployeeService,
     private router: Router
   ) {
-    // La lógica de carga de datos debe ir en ngOnInit, no en el constructor.
+
   }
 
-  ngOnInit(): void { // <<-- MÉTODO DE INICIALIZACIÓN
+  ngOnInit(): void { 
     const current = this.authService.getCurrentUser();
     
     if (current?.cc) {
       this.employeeService.getEmployeeDetails(current.cc).subscribe({
         next: (response) => {
-          // Accede a la propiedad .data, que contiene el objeto Employee
           const employee = response.data;
-          
-          // Asumiendo que el campo se llama 'nombreCompleto' en tu modelo Employee
           this.userName = employee.name || 'Usuario';
         },
         error: (err) => {
-          // Si falla la API, muestra al menos el CC
           this.userName = current.cc;
           console.error('Error al obtener datos del empleado:', err);
         }
