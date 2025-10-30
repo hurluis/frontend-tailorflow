@@ -1,0 +1,89 @@
+<!-- employee-profile.component.html -->
+<div class="profile-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-card>
+      <mat-card-content class="loading-content">
+        <mat-icon class="loading-icon">account_circle</mat-icon>
+        <p>Cargando información del perfil...</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <mat-card>
+      <mat-card-content class="error-content">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <h3>Error</h3>
+        <p>{{ errorMessage }}</p>
+        <button mat-raised-button color="primary" (click)="loadEmployeeProfile()">
+          <mat-icon>refresh</mat-icon>
+          Reintentar
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Profile Content -->
+  <div *ngIf="!isLoading && !errorMessage && employee" class="profile-content">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_circle</mat-icon>
+          Mi Perfil
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <div class="profile-info">
+          <!-- Avatar Section -->
+          <div class="avatar-section">
+            <div class="avatar">
+              <mat-icon>person</mat-icon>
+            </div>
+          </div>
+
+          <!-- Information Section -->
+          <div class="info-section">
+            <div class="info-item">
+              <mat-icon>badge</mat-icon>
+              <div class="info-content">
+                <span class="label">Nombre</span>
+                <span class="value">{{ employee.name }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon>fingerprint</mat-icon>
+              <div class="info-content">
+                <span class="label">Cédula</span>
+                <span class="value">{{ employee.cc }}</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon>info</mat-icon>
+              <div class="info-content">
+                <span class="label">Estado</span>
+                <mat-chip [color]="getStatusColor(employee.state)" highlighted>
+                  {{ employee.state }}
+                </mat-chip>
+              </div>
+            </div>
+
+            <div class="info-item" *ngIf="employee.role">
+              <mat-icon>workspace_premium</mat-icon>
+              <div class="info-content">
+                <span class="label">Rol</span>
+                <span class="value">{{ employee.role.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
