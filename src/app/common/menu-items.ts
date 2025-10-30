@@ -15,7 +15,9 @@ export const ADMIN_MENU_ITEMS: MenuItem[] = [
 ];
 
 export const EMPLOYEE_MENU_ITEMS: MenuItem[] = [
-  { label: 'Inicio', icon: 'home', route: '/employee/dashboard' },
-  { label: 'Mis tareas', icon: 'assignment', route: '/employee/tasks' },
-  { label: 'Mi perfil', icon: 'person', route: '/employee/profile' }
+  { label: 'Mi perfil', icon: 'person', route: '/employee/profile' },
+  { label: 'Tareas Asignadas', icon: 'assignment', route: '/employee/tasks' },
+  { label: 'Tareas Completadas', icon: 'check', route: '/employee/completed-tasks' },
+  
+  
 ];

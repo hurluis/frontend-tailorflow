@@ -1,0 +1,159 @@
+<!-- employee-tasks.component.html -->
+<div class="tasks-container">
+  <div class="header">
+    <h1>
+      <mat-icon>assignment</mat-icon>
+      Tareas Activas
+    </h1>
+    <button mat-raised-button color="primary" (click)="loadTasks()" [disabled]="isLoading">
+      <mat-icon>refresh</mat-icon>
+      Actualizar
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-card>
+      <mat-card-content class="loading-content">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p>Cargando tareas...</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="error-container">
+    <mat-card>
+      <mat-card-content class="error-content">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <h3>{{ errorMessage }}</h3>
+        <button mat-raised-button color="primary" (click)="loadTasks()">
+          <mat-icon>refresh</mat-icon>
+          Reintentar
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Tasks Content -->
+  <div *ngIf="!isLoading && !errorMessage && groupedTasks.length > 0" class="tasks-content">
+    <div *ngFor="let group of groupedTasks" class="product-group">
+      <mat-card>
+        <mat-card-header>
+          <div class="card-header-content">
+            <div>
+              <mat-card-title>
+                <mat-icon>inventory_2</mat-icon>
+                {{ group.productName }}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{ group.tasks.length }} tarea(s) asignada(s)
+              </mat-card-subtitle>
+            </div>
+            <button 
+              mat-raised-button 
+              color="primary"
+              [disabled]="loadingProductId === group.productId"
+              (click)="onViewProductDetail(group.productId)">
+              <mat-spinner *ngIf="loadingProductId === group.productId" diameter="20"></mat-spinner>
+              <mat-icon *ngIf="loadingProductId !== group.productId">visibility</mat-icon>
+              {{ loadingProductId === group.productId ? 'Cargando...' : 'Ver Detalle' }}
+            </button>
+          </div>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <div class="tasks-list">
+            <div *ngFor="let task of group.tasks" class="task-item" 
+                 [class.task-pending]="task.id_state === 1"
+                 [class.task-in-process]="task.id_state === 2"
+                 [class.task-finished]="task.id_state === 3">
+              
+              <!-- Task Header -->
+              <div class="task-header">
+                <div class="task-info">
+                  <div class="task-sequence">
+                    <mat-icon>filter_{{ task.sequence }}</mat-icon>
+                    <span>Secuencia {{ task.sequence }}</span>
+                  </div>
+                  <div class="task-area" *ngIf="task.area">
+                    <mat-icon>business</mat-icon>
+                    <span>{{ task.area.name }}</span>
+                  </div>
+                </div>
+                <mat-chip [color]="getTaskStatusColor(task.id_state)" highlighted>
+                  <mat-icon>{{ getTaskStatusIcon(task.id_state) }}</mat-icon>
+                  {{ task.state?.name || 'Sin estado' }}
+                </mat-chip>
+              </div>
+
+              <!-- Task Details -->
+              <div class="task-details">
+                <div class="detail-row" *ngIf="task.start_date">
+                  <mat-icon>schedule</mat-icon>
+                  <span><strong>Iniciada:</strong> {{ formatDate(task.start_date) }}</span>
+                </div>
+                <div class="detail-row" *ngIf="task.end_date">
+                  <mat-icon>done</mat-icon>
+                  <span><strong>Finalizada:</strong> {{ formatDate(task.end_date) }}</span>
+                </div>
+              </div>
+
+              <!-- Task Actions -->
+              <div class="task-actions">
+                <!-- Start Button -->
+                <button 
+                  mat-raised-button 
+                  color="accent"
+                  *ngIf="task.id_state === 1"
+                  [disabled]="!canStartTask(task) || processingTaskId === task.id_task"
+                  (click)="onStartTask(task)">
+                  <mat-spinner *ngIf="processingTaskId === task.id_task" diameter="20"></mat-spinner>
+                  <mat-icon *ngIf="processingTaskId !== task.id_task">play_arrow</mat-icon>
+                  {{ processingTaskId === task.id_task ? 'Procesando...' : 'Iniciar Tarea' }}
+                </button>
+
+                <!-- Complete Button -->
+                <button 
+                  mat-raised-button 
+                  color="primary"
+                  *ngIf="task.id_state === 2"
+                  [disabled]="!canCompleteTask(task) || processingTaskId === task.id_task"
+                  (click)="onCompleteTask(task)">
+                  <mat-spinner *ngIf="processingTaskId === task.id_task" diameter="20"></mat-spinner>
+                  <mat-icon *ngIf="processingTaskId !== task.id_task">check_circle</mat-icon>
+                  {{ processingTaskId === task.id_task ? 'Procesando...' : 'Completar Tarea' }}
+                </button>
+
+                <!-- Finished Badge -->
+                <div *ngIf="task.id_state === 3" class="finished-badge">
+                  <mat-icon>check_circle</mat-icon>
+                  <span>Tarea Completada</span>
+                </div>
+
+                <!-- Waiting Message -->
+                <div *ngIf="task.id_state === 1 && !canStartTask(task)" class="waiting-message">
+                  <mat-icon>hourglass_empty</mat-icon>
+                  <span>Esperando tarea anterior</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !errorMessage && groupedTasks.length === 0" class="empty-container">
+    <mat-card>
+      <mat-card-content class="empty-content">
+        <mat-icon>assignment_turned_in</mat-icon>
+        <h3>No tienes tareas activas</h3>
+        <p>Actualmente no tienes tareas pendientes o en proceso</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

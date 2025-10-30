@@ -33,6 +33,8 @@ import { OrderTrackingComponent } from './pages/admin/oracle-procedures/order-tr
 import { ProductLocationComponent } from './pages/admin/oracle-procedures/product-location/product-location';
 import { EmployeeLayout } from './layouts/employee-layout/employee-layout';
 import { EmployeeProfileComponent } from './pages/employee/profile/employee-profile';
+import { EmployeeTasks } from './pages/employee/tasks/employee-tasks/employee-tasks';
+import { CompletedTasks } from './pages/employee/completed-tasks/completed-tasks';
 
 
 export const routes: Routes = [
@@ -82,8 +84,10 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { role: 'employee' },
         children: [
-            { path: 'profile', component: EmployeeProfileComponent}
+            { path: 'profile', component: EmployeeProfileComponent },
+            {path: 'tasks',component: EmployeeTasks},
+            {path: 'completed-tasks',component: CompletedTasks}
         ]
-        
+
     }
 ];
