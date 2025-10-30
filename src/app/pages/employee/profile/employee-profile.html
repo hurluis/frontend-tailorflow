@@ -1,0 +1,81 @@
+<div class="employee-profile">
+  <div *ngIf="isLoading" class="loading-state">
+    <mat-spinner diameter="56"></mat-spinner>
+    <p>Cargando tu perfil...</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-state">
+    <mat-icon>error</mat-icon>
+    <h2>No pudimos mostrar tu información</h2>
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <ng-container *ngIf="!isLoading && !errorMessage && employee">
+    <mat-card class="summary-card">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar">
+          <mat-icon>person</mat-icon>
+        </div>
+        <mat-card-title>{{ employee.name }}</mat-card-title>
+        <mat-card-subtitle>{{ employee.role?.name || 'Colaborador Tailorflow' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="status-row">
+          <span>Estado actual</span>
+          <mat-chip [ngClass]="statusClass">{{ status }}</mat-chip>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="summary-grid">
+          <div>
+            <span class="label">Documento</span>
+            <span class="value">{{ employee.cc }}</span>
+          </div>
+          <div>
+            <span class="label">Tareas activas</span>
+            <span class="value">{{ totalTasks }}</span>
+          </div>
+          <div>
+            <span class="label">Rol asignado</span>
+            <span class="value">{{ employee.role?.name || 'Sin rol' }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="details-card">
+      <mat-card-header>
+        <mat-card-title>Detalle del colaborador</mat-card-title>
+        <mat-card-subtitle>Información general registrada en Tailorflow</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon matListItemIcon>badge</mat-icon>
+            <div matListItemTitle>Documento</div>
+            <div matListItemLine>{{ employee.cc }}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>person_outline</mat-icon>
+            <div matListItemTitle>Nombre</div>
+            <div matListItemLine>{{ employee.name }}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>work</mat-icon>
+            <div matListItemTitle>Rol</div>
+            <div matListItemLine>{{ employee.role?.name || 'Sin rol asignado' }}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>fact_check</mat-icon>
+            <div matListItemTitle>Estado</div>
+            <div matListItemLine>{{ status }}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon matListItemIcon>assignment</mat-icon>
+            <div matListItemTitle>Tareas vinculadas</div>
+            <div matListItemLine>{{ totalTasks }}</div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>

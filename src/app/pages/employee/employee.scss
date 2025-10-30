@@ -1,0 +1,159 @@
+.employee-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.error-state mat-icon {
+  color: var(--mat-sys-error);
+  font-size: 48px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--mat-sys-on-surface);
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--mat-sys-surface);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.stat-card .icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--mat-sys-on-primary);
+}
+
+.stat-card .icon.primary {
+  background: linear-gradient(135deg, var(--mat-sys-primary) 0%, var(--mat-sys-primary-container) 100%);
+}
+
+.stat-card .icon.info {
+  background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+}
+
+.stat-card .icon.warning {
+  background: linear-gradient(135deg, #f97316 0%, #facc15 100%);
+}
+
+.stat-card .icon.success {
+  background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+}
+
+.stat-card .content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card .label {
+  font-size: 0.9rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.stat-card .value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--mat-sys-on-surface);
+}
+
+.tasks-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--mat-sys-surface);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.tasks-table {
+  width: 100%;
+  min-width: 720px;
+}
+
+.cell-with-icon {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cell-with-icon mat-icon {
+  color: var(--mat-sys-primary);
+}
+
+.primary-text {
+  font-weight: 600;
+  display: block;
+}
+
+.secondary-text {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.85rem;
+}
+
+mat-chip.state-pending {
+  background: rgba(250, 204, 21, 0.15);
+  color: #d97706;
+}
+
+mat-chip.state-progress {
+  background: rgba(59, 130, 246, 0.15);
+  color: #1d4ed8;
+}
+
+mat-chip.state-completed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+}
+
+mat-chip.state-default {
+  background: rgba(148, 163, 184, 0.15);
+  color: #334155;
+}
+
+.empty-state mat-icon {
+  color: var(--mat-sys-primary);
+  font-size: 48px;
+}
+
+@media (max-width: 768px) {
+  .tasks-table {
+    min-width: 100%;
+  }
+}

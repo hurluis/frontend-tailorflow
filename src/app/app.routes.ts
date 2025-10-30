@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
 import { Admin } from './pages/admin/admin';
 import { Employee } from './pages/employee/employee';
+import { EmployeeLayout } from './layouts/employee-layout/employee-layout';
+import { EmployeeTasks } from './pages/employee/tasks/employee-tasks';
+import { EmployeeProfile } from './pages/employee/profile/employee-profile';
 import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
@@ -48,8 +51,14 @@ export const routes: Routes = [
     },
     {
         path: 'employee',
-        component: Employee,
+        component: EmployeeLayout,
         canActivate: [authGuard, roleGuard],
-        data: { role: 'employee' }
+        data: { role: 'employee' },
+        children: [
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: Employee },
+            { path: 'tasks', component: EmployeeTasks },
+            { path: 'profile', component: EmployeeProfile }
+        ]
     }
 ];
