@@ -51,6 +51,36 @@
   min-width: 720px;
 }
 
+.actions-column {
+  text-align: center;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions-cell button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions-cell mat-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: currentColor;
+}
+
+.completed-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #15803d;
+}
+
 .cell-with-icon {
   display: flex;
   align-items: center;

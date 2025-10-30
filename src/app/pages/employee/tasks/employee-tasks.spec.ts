@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { EmployeeTasks } from './employee-tasks';
 import { AuthService } from '../../../services/auth.service';
 import { EmployeesService } from '../../../services/employee.service';
+import { TasksService } from '../../../services/tasks.service';
 import { Task } from '../../../core/models/task.model';
 
 const mockTasks: Task[] = [
@@ -44,6 +45,16 @@ class EmployeesServiceStub {
   }
 }
 
+class TasksServiceStub {
+  startTask() {
+    return of({ data: mockTasks[0] });
+  }
+
+  completeTask() {
+    return of({ data: mockTasks[0] });
+  }
+}
+
 describe('EmployeeTasks', () => {
   let component: EmployeeTasks;
   let fixture: ComponentFixture<EmployeeTasks>;
@@ -53,7 +64,8 @@ describe('EmployeeTasks', () => {
       imports: [EmployeeTasks],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: EmployeesService, useClass: EmployeesServiceStub }
+        { provide: EmployeesService, useClass: EmployeesServiceStub },
+        { provide: TasksService, useClass: TasksServiceStub }
       ]
     }).compileComponents();
 
