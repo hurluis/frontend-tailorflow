@@ -1,4 +1,4 @@
-<div class="admin-container">
+<div class="employee-container">
   <app-navbar (sidebarToggle)="toggleSidebar()"></app-navbar>
 
   <mat-sidenav-container class="sidenav-container">
@@ -7,7 +7,7 @@
       [opened]="sidebarOpened"
       class="sidenav"
     >
-      <app-sidebar [menuItems]="adminMenuItems"></app-sidebar>
+      <app-sidebar [menuItems]="employeeMenuItems"></app-sidebar>
     </mat-sidenav>
 
     <mat-sidenav-content class="main-content">

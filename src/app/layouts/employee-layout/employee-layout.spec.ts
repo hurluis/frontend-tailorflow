@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
-import { AdminLayout } from './admin-layout';
+import { EmployeeLayout } from './employee-layout';
 import { AuthService } from '../../services/auth.service';
 import { EmployeesService } from '../../services/employee.service';
 
 class AuthServiceStub {
   getCurrentUser() {
-    return { id_rol: 1, cc: '123' };
+    return { id_rol: 2, cc: '123' };
   }
 }
 
 class EmployeesServiceStub {
   getEmployeeDetails() {
-    return of({ data: { name: 'Admin User' } });
+    return of({ data: { name: 'Test User' } });
   }
 }
 
@@ -22,13 +22,13 @@ class RouterStub {
   navigate = jasmine.createSpy('navigate');
 }
 
-describe('AdminLayout', () => {
-  let component: AdminLayout;
-  let fixture: ComponentFixture<AdminLayout>;
+describe('EmployeeLayout', () => {
+  let component: EmployeeLayout;
+  let fixture: ComponentFixture<EmployeeLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminLayout],
+      imports: [EmployeeLayout],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: EmployeesService, useClass: EmployeesServiceStub },
@@ -36,7 +36,7 @@ describe('AdminLayout', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminLayout);
+    fixture = TestBed.createComponent(EmployeeLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

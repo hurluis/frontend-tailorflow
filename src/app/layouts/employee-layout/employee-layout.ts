@@ -5,10 +5,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { Navbar } from '../../components/navbar/navbar';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { MenuItem } from '../../core/models/menu-item.model';
-import { ADMIN_MENU_ITEMS } from '../../common/menu-items';
+import { EMPLOYEE_MENU_ITEMS } from '../../common/menu-items';
 
 @Component({
-  selector: 'app-admin-layout',
+  selector: 'app-employee-layout',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,12 +17,12 @@ import { ADMIN_MENU_ITEMS } from '../../common/menu-items';
     Navbar,
     Sidebar
   ],
-  templateUrl: './admin-layout.html',
-  styleUrl: './admin-layout.scss',
+  templateUrl: './employee-layout.html',
+  styleUrl: './employee-layout.scss'
 })
-export class AdminLayout {
+export class EmployeeLayout {
   sidebarOpened = true;
-  readonly adminMenuItems: MenuItem[] = ADMIN_MENU_ITEMS;
+  readonly employeeMenuItems: MenuItem[] = EMPLOYEE_MENU_ITEMS;
 
   toggleSidebar(): void {
     this.sidebarOpened = !this.sidebarOpened;
