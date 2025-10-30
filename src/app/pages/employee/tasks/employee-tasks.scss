@@ -1,0 +1,133 @@
+.employee-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.error-state mat-icon {
+  color: var(--mat-sys-error);
+  font-size: 48px;
+}
+
+.filters-card,
+.tasks-card {
+  border-radius: 20px;
+  background: var(--mat-sys-surface);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.filters-toggle {
+  margin: 12px 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filters-toggle mat-button-toggle {
+  border-radius: 999px !important;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.tasks-table {
+  width: 100%;
+  min-width: 720px;
+}
+
+.actions-column {
+  text-align: center;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions-cell button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions-cell mat-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: currentColor;
+}
+
+.completed-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.cell-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cell-with-icon mat-icon {
+  color: var(--mat-sys-primary);
+}
+
+.primary-text {
+  font-weight: 600;
+  display: block;
+}
+
+.secondary-text {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.85rem;
+}
+
+mat-chip.state-pending {
+  background: rgba(250, 204, 21, 0.15);
+  color: #d97706;
+}
+
+mat-chip.state-progress {
+  background: rgba(59, 130, 246, 0.15);
+  color: #1d4ed8;
+}
+
+mat-chip.state-completed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+}
+
+mat-chip.state-default {
+  background: rgba(148, 163, 184, 0.15);
+  color: #334155;
+}
+
+.empty-state mat-icon {
+  color: var(--mat-sys-primary);
+  font-size: 48px;
+}
+
+@media (max-width: 768px) {
+  .tasks-table {
+    min-width: 100%;
+  }
+}

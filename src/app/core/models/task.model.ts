@@ -11,8 +11,8 @@ export interface Task {
   id_area: number;
   id_state: number;
   sequence: number;
-  start_date: Date;
-  end_date: Date;
+  start_date?: Date | string | null;
+  end_date?: Date | string | null;
   product?: Product;
   employee?: Employee;
   area?: Area;
