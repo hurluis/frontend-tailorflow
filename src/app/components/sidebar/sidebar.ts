@@ -47,7 +47,7 @@ export class Sidebar {
 
     { label: 'Flujos', icon: 'account_tree', route: '/admin/flows' },
 
-    { label: 'Seguimiento Pedidos', icon: 'track_changes', route: '/admin/order-tracking' },
+    { label: 'Seguimiento de orden', icon: 'track_changes', route: '/admin/order-tracking' },
 
     { label: 'Ubicación Productos', icon: 'place', route: '/admin/product-location' }
 

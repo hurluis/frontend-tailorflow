@@ -1,0 +1,61 @@
+.areas-list-container {
+    padding: 20px;
+    width: 100%;
+}
+
+mat-card {
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.areas-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+    min-height: 200px;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-column-actions {
+    width: 100px;
+    text-align: center;
+    padding-right: 16px;
+}
+
+.mat-paginator {
+    background: transparent;
+}
+
+
+.is-loading {
+    pointer-events: none;
+    opacity: 0.6; 
+}
+

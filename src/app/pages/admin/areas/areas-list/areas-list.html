@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>business</mat-icon> Gestión de Áreas
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="createArea()">
+        <mat-icon>add</mat-icon> Crear Área
+      </button>
+    </div>
+
+    <div class="table-container mat-elevation-z2" [class.is-loading]="isLoading">
+
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nombre del Área </th>
+          <td mat-cell *matCellDef="let area"> {{ area.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roles_count">
+          <th mat-header-cell *matHeaderCellDef> Roles Asociados </th>
+          <td mat-cell *matCellDef="let area"> {{ area.roles?.length || 0 }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let area">
+            <button mat-icon-button color="accent" (click)="editArea(area)" aria-label="Editar área">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="displayedColumns.length">No se encontraron áreas.</td>
+        </tr>
+      </table>
+      </div>
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange($event)" aria-label="Seleccionar página de áreas">
+      </mat-paginator>
+    
+  </mat-card-content>
+</mat-card>

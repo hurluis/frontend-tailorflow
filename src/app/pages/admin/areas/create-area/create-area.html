@@ -1,0 +1,39 @@
+<div class="create-area-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>add_box</mat-icon> Crear Nueva Área
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="form-content">
+      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre del Área</mat-label>
+          <input matInput formControlName="name" placeholder="Ej: Producción, Marketing">
+          <mat-icon matSuffix>business_center</mat-icon>
+          
+          <mat-error *ngIf="createForm.get('name')?.hasError('required')">
+            El nombre es **obligatorio**.
+          </mat-error>
+          <mat-error *ngIf="createForm.get('name')?.hasError('maxlength')">
+            Máximo **100 caracteres**.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="createForm.invalid || isSaving">
+            <mat-icon>{{ isSaving ? 'loop' : 'save' }}</mat-icon> 
+            {{ isSaving ? 'Creando...' : 'Crear Área' }}
+          </button>
+          <button mat-button type="button" (click)="onCancel()" [disabled]="isSaving">
+            Cancelar
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

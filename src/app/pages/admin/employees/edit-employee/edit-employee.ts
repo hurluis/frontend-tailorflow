@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EmployeesService } from '../../../../services/employee.service';
 import { Employee } from '../../../../core/models/employee.model';
-import { MatDividerModule } from '@angular/material/divider'; // Añadido para consistencia visual con el ejemplo
+import { MatDividerModule } from '@angular/material/divider'; 
 
 @Component({
   selector: 'app-edit-employee',
@@ -22,14 +22,13 @@ import { MatDividerModule } from '@angular/material/divider'; // Añadido para c
     MatSelectModule,
     MatButtonModule,
     MatCardModule,
-    MatDividerModule // Incluido en los imports
+    MatDividerModule 
   ],
   templateUrl: './edit-employee.html',
   styleUrl: './edit-employee.scss'
 })
 export class EditEmployee implements OnInit {
-  // Nota: Usa '!' para inicialización tardía o asigna el valor en el constructor.
-  employeeForm!: FormGroup; // Cambio para usar inicialización tardía y seguir el patrón
+  employeeForm!: FormGroup; 
   employeeId!: number;
   employee!: Employee;
   isLoading = true;
@@ -46,7 +45,7 @@ export class EditEmployee implements OnInit {
     private route: ActivatedRoute,
     private employeesService: EmployeesService
   ) {
-    this.initForm(); // Llamada a la inicialización del formulario en el constructor
+    this.initForm(); 
   }
 
   ngOnInit(): void {
@@ -84,7 +83,7 @@ export class EditEmployee implements OnInit {
   onSubmit(): void {
     if (!this.employeeForm.valid) {
       this.employeeForm.markAllAsTouched();
-      alert('Por favor, revise los campos del formulario.'); // Añadido mensaje de alerta
+      alert('Por favor, revise los campos del formulario.'); 
       return;
     }
 

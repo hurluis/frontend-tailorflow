@@ -185,7 +185,7 @@ export class CreateOrder implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoriesService.getAll().subscribe({
+    this.categoriesService.getAllForForms().subscribe({
       next: (response: ResponseDto<Category[]>) => this.categories = response.data,
       error: (err) => console.error('Error cargando categorías', err)
     });
@@ -311,8 +311,7 @@ export class CreateOrder implements OnInit {
   };
 
   displayCustomer(id: number): string {
-    // Esta función muestra el nombre cuando se selecciona
-    return ''; // Dejarlo vacío para que se limpie después de seleccionar
+    return ''; 
   }
 
 }

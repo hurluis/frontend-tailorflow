@@ -7,10 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { EmployeesService } from '../../../../services/employee.service';
 import { Employee } from '../../../../core/models/employee.model';
-// Importación correcta para el paginador: MatPaginatorModule
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'; 
 
-// Importaciones no necesarias para EmployeesList (OrderDetailsDialog, MatDialogModule) se han omitido
 
 @Component({
   selector: 'app-employees-list',
@@ -22,7 +20,6 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    // Se corrige la importación del módulo del paginador
     MatPaginatorModule 
   ],
   templateUrl: './employees-list.html',
@@ -34,7 +31,6 @@ export class EmployeesList implements OnInit {
   page = 1;
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 50];
-  // Se añade 'email' a las columnas mostradas si es relevante
   displayedColumns: string[] = ['id_employee', 'cc', 'name', 'role', 'state', 'actions']; 
   isLoading = false;
 

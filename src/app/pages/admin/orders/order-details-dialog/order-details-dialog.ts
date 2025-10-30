@@ -1,5 +1,4 @@
-// order-details-dialog.component.ts
-import { Component, Inject, OnInit } from '@angular/core'; // ← Agregar OnInit
+import { Component, Inject, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,12 +18,12 @@ import { ProductDetail } from '../../../../core/models/order.model';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    MatChipsModule // ← Verificar que esté
+    MatChipsModule 
   ],
   templateUrl: './order-details-dialog.html',
   styleUrl: './order-details-dialog.scss'
 })
-export class OrderDetailsDialog implements OnInit { // ← Agregar OnInit
+export class OrderDetailsDialog implements OnInit { 
   products: ProductDetail[] = [];
   isLoadingProducts = true;
 
@@ -41,8 +40,6 @@ export class OrderDetailsDialog implements OnInit { // ← Agregar OnInit
   loadProducts(): void {
     this.ordersService.getOrderWithProducts(this.order.id_order).subscribe({
       next: (response) => {
-        console.log('Response completa:', response); // ← Debug
-        console.log('Productos:', response.data.products); // ← Debug
         this.products = response.data.products || [];
         this.isLoadingProducts = false;
       },

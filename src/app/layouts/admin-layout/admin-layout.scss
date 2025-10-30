@@ -1,15 +1,12 @@
 .admin-container {
   height: 100vh;
-  // Usar flexbox en el contenedor padre
   display: flex;
   flex-direction: column; 
 }
 
 .sidenav-container {
-  // Ocupa todo el espacio vertical restante disponible
+
   flex: 1; 
-  
-  // ¡Asegúrate de que el contenedor de la side-nav tenga altura!
   height: 100%; 
 }
 

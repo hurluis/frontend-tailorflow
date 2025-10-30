@@ -2,16 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
-// Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'; 
-
-// Servicios y Modelos
 import { RolesService } from '../../../../services/roles.service';
 import { Role } from '../../../../core/models/role.model';
 
@@ -43,7 +39,7 @@ export class EditRole implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private rolesService: RolesService,
-    private cdr: ChangeDetectorRef // Para forzar la detección de cambios
+    private cdr: ChangeDetectorRef 
   ) {
     this.initForm();
   }
@@ -55,10 +51,9 @@ export class EditRole implements OnInit {
 
   initForm(): void {
     this.editForm = this.fb.group({
-      // Campo de visualización de área (deshabilitado)
       areaName: [{ value: '', disabled: true }], 
-      name: ['', [Validators.required, Validators.maxLength(50)]], // Requerido en UpdateRoleDto
-      description: ['', [Validators.required, Validators.maxLength(100)]] // Requerido en UpdateRoleDto
+      name: ['', [Validators.required, Validators.maxLength(50)]], 
+      description: ['', [Validators.required, Validators.maxLength(100)]] 
     });
   }
 
@@ -68,13 +63,13 @@ export class EditRole implements OnInit {
         this.role = response.data;
 
         this.editForm.patchValue({
-          areaName: this.role.area?.name || 'N/A', // Muestra el nombre del área actual
+          areaName: this.role.area?.name || 'N/A', 
           name: this.role.name,
           description: this.role.description
         });
 
         this.isLoading = false;
-        this.cdr.detectChanges(); // Asegura que el formulario se muestre
+        this.cdr.detectChanges(); 
       },
       error: (err) => {
         console.error('Error cargando rol', err);
@@ -91,14 +86,12 @@ export class EditRole implements OnInit {
     }
 
     this.isSaving = true;
-    // Usamos .getRawValue() para incluir los campos deshabilitados (si los hubiera) 
-    // pero en este caso solo necesitamos los valores del formulario.
     const { name, description } = this.editForm.value;
 
     const updateData: any = {
       name: name,
       description: description
-      // No incluimos campos opcionales, tu DTO acepta todos
+
     };
 
     this.rolesService.update(this.roleId, updateData).subscribe({

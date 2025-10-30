@@ -1,4 +1,3 @@
-// Estilos compartidos para las vistas de Creación y Edición
 .create-role-container, .edit-role-container {
     display: flex;
     justify-content: center;
@@ -7,7 +6,7 @@
 
 mat-card {
     width: 100%;
-    max-width: 700px; /* Ancho máximo para el formulario */
+    max-width: 700px; 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -29,7 +28,7 @@ mat-card-title {
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espacio vertical entre campos */
+    gap: 15px; 
 }
 
 .full-width {
@@ -47,7 +46,7 @@ form {
     }
 }
 
-// Estilo para el área de carga (loading)
+
 .loading-spinner {
     display: flex;
     justify-content: center;

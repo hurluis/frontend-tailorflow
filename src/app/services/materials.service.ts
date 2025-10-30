@@ -5,6 +5,13 @@ import { environment } from '../../environments/environment';
 import { ResponseDto } from '../core/models/response.dto';
 import { Material } from '../core/models/material.model';
 
+interface MaterialsPaginatedResponse {
+    materials: Material[];
+    total: number;
+    page: number;
+    totalPages: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,12 +20,15 @@ export class MaterialsService {
 
   constructor(private http: HttpClient) {}
 
+  getAllPaginated(page: number, limit: number): Observable<ResponseDto<MaterialsPaginatedResponse>> {
+    return this.http.get<ResponseDto<MaterialsPaginatedResponse>>(`${this.API_URL}?page=${page}&limit=${limit}`);
+  }
   getAll(): Observable<ResponseDto<Material[]>> {
-    return this.http.get<ResponseDto<Material[]>>(this.API_URL);
+    return this.http.get<ResponseDto<Material[]>>(`${this.API_URL}/all`);
   }
 
   getById(id: number): Observable<ResponseDto<Material>> {
-    return this.http.get<ResponseDto<Material>>(`${this.API_URL}/${id}`);
+    return this.http.get<ResponseDto<Material>>(`${this.API_URL}/single/${id}`); 
   }
 
   create(material: any): Observable<ResponseDto<Material>> {
@@ -36,4 +46,5 @@ export class MaterialsService {
   checkStock(materials: {id_material: number, quantity: number}[]): Observable<ResponseDto<any>> {
     return this.http.post<ResponseDto<any>>(`${this.API_URL}/check-stock`, { materials });
   }
+
 }

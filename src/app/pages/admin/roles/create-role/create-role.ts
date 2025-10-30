@@ -2,20 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
-// Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'; 
-import { MatSelectModule } from '@angular/material/select'; // Necesario para seleccionar el área
-import { forkJoin } from 'rxjs';
-
-// Servicios y Modelos
+import { MatSelectModule } from '@angular/material/select'; 
 import { RolesService } from '../../../../services/roles.service';
-// Asumo un servicio para obtener áreas, necesario para el campo id_area
 import { AreasService } from '../../../../services/areas.service'; 
 import { Area } from '../../../../core/models/area.model'; 
 
@@ -39,29 +33,26 @@ import { Area } from '../../../../core/models/area.model';
 export class CreateRole implements OnInit {
   createForm!: FormGroup;
   isSaving = false;
-  isLoading = true; // Para cargar la lista de áreas
-  areas: Area[] = []; // Lista de áreas para el <mat-select>
+  isLoading = true; 
+  areas: Area[] = []; 
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private rolesService: RolesService,
-    private areasService: AreasService // Servicio asumido para obtener áreas
+    private areasService: AreasService 
   ) {
     this.initForm();
   }
 
   ngOnInit(): void {
-    this.loadDependencies(); // Cargar áreas
+    this.loadDependencies(); 
   }
-  
-  /**
-   * Carga dependencias necesarias, como la lista de áreas.
-   */
+
   loadDependencies(): void {
     this.areasService.getAllForForms().subscribe({
       next: (response) => {
-        this.areas = response.data; // Asumo que response.data es el array de áreas
+        this.areas = response.data; 
         this.isLoading = false;
       },
       error: (err) => {
@@ -76,7 +67,7 @@ export class CreateRole implements OnInit {
     this.createForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(100)]],
-      id_area: [null, [Validators.required, Validators.min(1)]] // id_area obligatorio y numérico
+      id_area: [null, [Validators.required, Validators.min(1)]] 
     });
   }
 
