@@ -31,6 +31,7 @@ import { CreateFlow } from './pages/admin/flows/create-flow/create-flow';
 import { EditFlow } from './pages/admin/flows/edit-flow/edit-flow';
 import { OrderTrackingComponent } from './pages/admin/oracle-procedures/order-tracking/order-tracking';
 import { ProductLocationComponent } from './pages/admin/oracle-procedures/product-location/product-location';
+import { EmployeeLayout } from './layouts/employee-layout/employee-layout';
 
 
 export const routes: Routes = [
@@ -76,7 +77,7 @@ export const routes: Routes = [
     },
     {
         path: 'employee',
-        component: Employee,
+        component: EmployeeLayout,
         canActivate: [authGuard, roleGuard],
         data: { role: 'employee' }
     }
